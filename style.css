@@ -136,7 +136,7 @@ html {
 .city-form__submit {
   cursor: pointer;
   text-align: center;
-  margin-top: 1rem;
+  margin: 1rem 0;
   font-size: 1.4rem;
   color: var(--color-champagne);
   background-color: var(--color-liver-organ);

@@ -2,6 +2,7 @@ const windDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
 
 class WeatherData {
   constructor(
+    city,
     currentTemp,
     highTemp,
     lowTemp,
@@ -9,10 +10,11 @@ class WeatherData {
     windSpeed,
     windDirection
   ) {
-    this.currentTemp = currentTemp;
-    this.highTemp = highTemp;
-    this.lowTemp = lowTemp;
-    this.conditions = conditions;
+    this.city = city;
+    this.currentTemp = Math.round(currentTemp);
+    this.highTemp = Math.round(highTemp);
+    this.lowTemp = Math.round(lowTemp);
+    this.conditions = conditions.charAt(0).toUpperCase() + conditions.slice(1);
     this.windSpeed = windSpeed;
     this.windDirection = windDirection;
   }
@@ -27,7 +29,6 @@ class WeatherData {
   }
 
   // methods to fahrenheit conversion
-  // compass direction for wind
 }
 
 const app = (() => {
@@ -37,7 +38,26 @@ const app = (() => {
   // functions
   function displayError() {}
 
-  function displayWeather(obj) {}
+  function displayWeather(obj) {
+    console.log(obj);
+    const city = document.querySelector(".weather__city");
+    city.innerText = obj.city;
+
+    const currentTemp = document.querySelector(".weather__temp");
+    currentTemp.innerText = obj.currentTemp;
+
+    const conditions = document.querySelector(".weather__conditions");
+    conditions.innerText = obj.conditions;
+
+    const high = document.querySelector(".weather__high");
+    high.innerText = "High: " + obj.highTemp;
+
+    const low = document.querySelector(".weather__low");
+    low.innerText = "Low: " + obj.lowTemp;
+
+    const wind = document.querySelector(".weather__wind");
+    wind.innerText = `Wind: ${obj.windSpeed} mph, ${obj.compassDirection}`;
+  }
 
   function fetchWeather(city) {
     return fetch(
@@ -58,6 +78,7 @@ const app = (() => {
   }
 
   function makeWeatherObject(data) {
+    const city = data.name;
     const currentTemp = data.main.temp;
     const highTemp = data.main.temp_max;
     const lowTemp = data.main.temp_min;
@@ -66,6 +87,7 @@ const app = (() => {
     const windDirection = data.wind.deg;
 
     return new WeatherData(
+      city,
       currentTemp,
       highTemp,
       lowTemp,
@@ -83,9 +105,7 @@ const app = (() => {
         return;
       }
       const weatherObj = makeWeatherObject(data);
-      console.log(weatherObj);
       displayWeather(weatherObj);
-      window.weatherObj = weatherObj;
     });
   }
 
