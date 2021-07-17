@@ -1,3 +1,5 @@
+const windDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
+
 class WeatherData {
   constructor(
     currentTemp,
@@ -13,6 +15,15 @@ class WeatherData {
     this.conditions = conditions;
     this.windSpeed = windSpeed;
     this.windDirection = windDirection;
+  }
+
+  get compassDirection() {
+    return this.calcWindDirection();
+  }
+
+  calcWindDirection() {
+    const direction = Math.round(this.windDirection / 45) + 1;
+    return windDirections[direction];
   }
 
   // methods to fahrenheit conversion
@@ -74,6 +85,7 @@ const app = (() => {
       const weatherObj = makeWeatherObject(data);
       console.log(weatherObj);
       displayWeather(weatherObj);
+      window.weatherObj = weatherObj;
     });
   }
 
