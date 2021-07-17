@@ -5,8 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stormy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body></body>
+  <body class="body">
+    <main class="main">
+      <h1 class="header">Stormy</h1>
+      <div class="weather">
+        <div class="weather__header">
+          <div class="weather__subheader">
+            <div class="weather__city">Detroit</div>
+            <div class="weather__temp">73</div>
+          </div>
+          <div class="weather__conditions">Partly Cloudy</div>
+        </div>
+        <div class="weather__main">
+          <div class="weather__main-left">
+            <div class="weather__high">High: 80</div>
+            <div class="weather__low">Low: 50</div>
+            <div class="weather__wind">Wind: 5 mph, NW</div>
+          </div>
+          <div class="weather__main-right"></div>
+        </div>
+      </div>
+      <form class="city-form">
+        <label class="city-form__label" for="city">Search Your City</label>
+        <input class="city-form__input" type="text" name="city" />
+        <input class="city-form__submit" type="submit" value="Load Weather" />
+      </form>
+    </main>
+  </body>
   <script src="index.js"></script>
 </html>

@@ -5,9 +5,7 @@ class WeatherData {
     lowTemp,
     conditions,
     windSpeed,
-    windDirection,
-    sunrise,
-    sunset
+    windDirection
   ) {
     this.currentTemp = currentTemp;
     this.highTemp = highTemp;
@@ -19,35 +17,36 @@ class WeatherData {
 
   // methods to fahrenheit conversion
   // compass direction for wind
-  // sunset and sunrise methods
 }
 
 const app = (() => {
+  // DOM Capture
+  const cityForm = document.querySelector(".city-form");
+
+  // functions
+  function displayError() {}
+
+  function displayWeather(obj) {}
+
   function fetchWeather(city) {
-    return (
-      fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=2cb1f67211afcc04ab3cde6076c7190a&units=metric`
-      )
-        .then(function (response) {
-          if (!response.ok) {
-            throw new Error("Network error");
-          }
-          return response;
-        })
-        .then(function (response) {
-          return response.json();
-        })
-        /*     .then(function (response) {
-      return response;
-    }) */
-        .catch(function (err) {
-          console.log(err);
-        })
-    );
+    return fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=2cb1f67211afcc04ab3cde6076c7190a&units=imperial`
+    )
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error();
+        }
+        return response;
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .catch(function (error) {
+        return error;
+      });
   }
 
   function makeWeatherObject(data) {
-    console.log(data);
     const currentTemp = data.main.temp;
     const highTemp = data.main.temp_max;
     const lowTemp = data.main.temp_min;
@@ -65,9 +64,27 @@ const app = (() => {
     );
   }
 
-  const weatherJSON = fetchWeather("Detroit");
-  weatherJSON.then((data) => {
-    const weatherObj = makeWeatherObject(data);
-    console.log(weatherObj);
+  function processData(input) {
+    const weatherJSON = fetchWeather(input);
+    weatherJSON.then((data) => {
+      if (data instanceof Error) {
+        displayError();
+        return;
+      }
+      const weatherObj = makeWeatherObject(data);
+      console.log(weatherObj);
+      displayWeather(weatherObj);
+    });
+  }
+
+  // Event Listeners
+
+  cityForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = cityForm.city.value;
+    processData(input);
   });
+
+  // init
+  processData("Detroit");
 })();

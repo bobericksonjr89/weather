@@ -1,0 +1,147 @@
+/*-------------------
+    reset
+-------------------*/
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*-------------------
+    BLOCK ELEMENT MODIFIER
+-------------------*/
+
+html {
+  --color-champagne: #edddd4;
+  --color-skobeloff: #197278;
+  --color-outer-space-crayola: #283d3b;
+  --color-international-orage-golden-gate-bridge: #c44536;
+  --color-liver-organ: #772e25;
+
+  font-family: "Open Sans", sans-serif;
+}
+
+.body {
+  background-color: var(--color-champagne);
+}
+
+.header {
+  margin: 2rem 0;
+  text-align: center;
+  font-size: 3.5rem;
+}
+
+.weather {
+  margin: 3rem auto 0 auto;
+  height: 30rem;
+  width: 40rem;
+  border: 3px solid black;
+  border-radius: 3rem;
+}
+
+.weather__header {
+  margin: 1rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  border-bottom: 2px solid black;
+}
+
+.weather__subheader {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.weather__city {
+  font-size: 2rem;
+}
+
+.weather__temp {
+  font-size: 2rem;
+  transform: scale(2);
+}
+
+.weather__conditions {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 1.25rem;
+}
+
+.weather__main {
+  height: 20rem;
+  font-size: 2rem;
+}
+
+.weather__main-left {
+  width: 50%;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.city-form {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.city-form__label {
+  font-size: 2rem;
+  color: var(--color-liver-organ);
+}
+
+.city-form__input {
+  font-size: 1.2rem;
+  height: 2rem;
+  width: 15rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.city-form__submit {
+  cursor: pointer;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  color: var(--color-champagne);
+  background-color: var(--color-liver-organ);
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 2rem;
+  width: 10rem;
+}
