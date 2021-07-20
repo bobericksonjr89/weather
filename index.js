@@ -15,7 +15,7 @@ class WeatherData {
     this.highTemp = Math.round(highTemp);
     this.lowTemp = Math.round(lowTemp);
     this.conditions = conditions.charAt(0).toUpperCase() + conditions.slice(1);
-    this.windSpeed = windSpeed;
+    this.windSpeed = Math.round(windSpeed);
     this.windDirection = windDirection;
   }
 
@@ -23,40 +23,106 @@ class WeatherData {
     return this.calcWindDirection();
   }
 
+  get celsius() {
+    return this.calcCelsius();
+  }
+
+  get metricWindSpeed() {
+    return this.calcWindSpeed();
+  }
+
   calcWindDirection() {
     const direction = Math.round(this.windDirection / 45) + 1;
+    console.log(direction);
+    if (direction == 9) {
+      return "N";
+    }
     return windDirections[direction];
   }
 
-  // methods to fahrenheit conversion
+  calcCelsius(temp) {
+    return Math.round(((temp - 32) * 5) / 9);
+  }
+
+  calcWindSpeed() {
+    return Math.round(this.windSpeed * 1.609);
+  }
 }
 
 const app = (() => {
   // DOM Capture
+  const message = document.querySelector(".weather__message");
+  const city = document.querySelector(".weather__city");
+  const currentTemp = document.querySelector(".weather__temp");
+  const conditions = document.querySelector(".weather__conditions");
+  const high = document.querySelector(".weather__high");
+  const low = document.querySelector(".weather__low");
+  const wind = document.querySelector(".weather__wind");
+
+  const image = document.querySelector(".weather__image");
+
   const cityForm = document.querySelector(".city-form");
+  const fahrenheit = document.querySelector(".fahrenheit");
+  const celsius = document.querySelector(".celsius");
+
+  // global variables
+
+  let isFahrenheit = true;
+  let savedObj = {};
 
   // functions
-  function displayError() {}
+  function displayError() {
+    message.style.display = "block";
+    city.innerText = "";
+    currentTemp.innerText = "";
+    conditions.innerText = "";
+    high.innerText = "";
+    low.innerText = "";
+    wind.innerText = "";
+  }
+
+  function displayImperial() {
+    if (isFahrenheit === false) {
+      celsius.classList.remove("button--active");
+      fahrenheit.classList.add("button--active");
+    }
+    isFahrenheit = true;
+    displayWeather(savedObj);
+  }
+
+  function displayMetric() {
+    if (isFahrenheit === true) {
+      fahrenheit.classList.remove("button--active");
+      celsius.classList.add("button--active");
+    }
+    isFahrenheit = false;
+    displayWeather(savedObj);
+  }
 
   function displayWeather(obj) {
     console.log(obj);
-    const city = document.querySelector(".weather__city");
+    message.style.display = "none";
     city.innerText = obj.city;
-
-    const currentTemp = document.querySelector(".weather__temp");
-    currentTemp.innerText = obj.currentTemp;
-
-    const conditions = document.querySelector(".weather__conditions");
     conditions.innerText = obj.conditions;
 
-    const high = document.querySelector(".weather__high");
-    high.innerText = "High: " + obj.highTemp;
+    if (isFahrenheit === true) {
+      currentTemp.innerText = obj.currentTemp + "°F";
+      high.innerText = "High: " + obj.highTemp + "°F";
+      low.innerText = "Low: " + obj.lowTemp + "°F";
+      wind.innerText = `Wind: ${obj.windSpeed} mph, ${obj.compassDirection}`;
+      return;
+    }
 
-    const low = document.querySelector(".weather__low");
-    low.innerText = "Low: " + obj.lowTemp;
+    currentTemp.innerText = obj.calcCelsius(obj.currentTemp) + "°C";
+    high.innerText = "High: " + obj.calcCelsius(obj.highTemp) + "°C";
+    low.innerText = "Low: " + obj.calcCelsius(obj.lowTemp) + "°C";
+    wind.innerText = `Wind: ${obj.calcWindSpeed(obj.windSpeed)} km/hr, ${
+      obj.compassDirection
+    }`;
+  }
 
-    const wind = document.querySelector(".weather__wind");
-    wind.innerText = `Wind: ${obj.windSpeed} mph, ${obj.compassDirection}`;
+  function displayImg(imgData) {
+    image.src = imgData.data.images.original.url;
   }
 
   function fetchWeather(city) {
@@ -75,6 +141,20 @@ const app = (() => {
       .catch(function (error) {
         return error;
       });
+  }
+
+  async function fetchGif(description) {
+    console.log(description);
+    try {
+      const response = await fetch(
+        `https://api.giphy.com/v1/gifs/translate?api_key=CPclGYCuEiW2nD7terXj71m9GmdMlNND&s&s=${description}`,
+        { mode: "cors" }
+      );
+      const imgData = await response.json();
+      displayImg(imgData);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function makeWeatherObject(data) {
@@ -105,7 +185,9 @@ const app = (() => {
         return;
       }
       const weatherObj = makeWeatherObject(data);
+      savedObj = weatherObj;
       displayWeather(weatherObj);
+      fetchGif(weatherObj.conditions);
     });
   }
 
@@ -116,6 +198,9 @@ const app = (() => {
     const input = cityForm.city.value;
     processData(input);
   });
+
+  fahrenheit.addEventListener("click", displayImperial);
+  celsius.addEventListener("click", displayMetric);
 
   // init
   processData("Detroit");

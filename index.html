@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stormy</title>
+    <title>Weather Center</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,10 +15,11 @@
   </head>
   <body class="body">
     <main class="main">
-      <h1 class="header">Stormy</h1>
+      <h1 class="header">Weather Center</h1>
       <div class="weather">
         <div class="weather__header">
           <div class="weather__subheader">
+            <div class="weather__message">City not found</div>
             <div class="weather__city">Detroit</div>
             <div class="weather__temp">73</div>
           </div>
@@ -30,15 +31,24 @@
             <div class="weather__low">Low: 50</div>
             <div class="weather__wind">Wind: 5 mph, NW</div>
           </div>
-          <div class="weather__main-right"></div>
+          <div class="weather__main-right">
+            <img class="weather__image" src="#" alt="" />
+          </div>
         </div>
       </div>
+    </main>
+    <footer class="footer">
       <form class="city-form">
         <label class="city-form__label" for="city">Search Your City</label>
         <input class="city-form__input" type="text" name="city" />
         <input class="city-form__submit" type="submit" value="Load Weather" />
       </form>
-    </main>
+      <div class="degree-buttons">
+        <button class="button button--active fahrenheit">F</button>
+        <div class="degree-divider">/</div>
+        <button class="button celsius">C</button>
+      </div>
+    </footer>
   </body>
   <script src="index.js"></script>
 </html>

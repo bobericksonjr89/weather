@@ -53,16 +53,18 @@ html {
 }
 
 .body {
-  background-color: var(--color-champagne);
 }
 
 .header {
+  color: var(--color-outer-space-crayola);
   margin: 2rem 0;
   text-align: center;
   font-size: 3.5rem;
 }
 
 .weather {
+  box-shadow: 1px 1px 5px 3px black, -1px -1px 5px 3px black;
+  background-color: var(--color-champagne);
   margin: 3rem auto 0 auto;
   height: 30rem;
   width: 40rem;
@@ -75,6 +77,7 @@ html {
   display: flex;
   flex-direction: column;
   width: 90%;
+  height: 6.375rem;
   border-bottom: 2px solid black;
 }
 
@@ -82,6 +85,11 @@ html {
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.weather__message {
+  display: none;
+  font-size: 3rem;
 }
 
 .weather__city {
@@ -102,18 +110,39 @@ html {
 .weather__main {
   height: 20rem;
   font-size: 2rem;
+  display: flex;
 }
 
 .weather__main-left {
-  width: 50%;
+  width: 60%;
   padding: 1rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
 }
+
+.weather__main-right {
+  display: flex;
+  align-items: center;
+}
+
+.weather__image {
+  height: 10rem;
+  width: 15rem;
+  object-fit: cover;
+  border: 7px solid black;
+  border-radius: 1rem;
+}
+
+.footer {
+  width: 40rem;
+  margin: 3rem auto;
+  display: flex;
+  justify-content: space-around;
+}
+
 .city-form {
-  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,7 +150,7 @@ html {
 
 .city-form__label {
   font-size: 2rem;
-  color: var(--color-liver-organ);
+  color: var(--color-outer-space-crayola);
 }
 
 .city-form__input {
@@ -133,15 +162,52 @@ html {
   border: 2px solid black;
 }
 
+.city-form__input:hover,
+.city-form__input:focus {
+  outline: none;
+  box-shadow: 1px 1px 3px 1px var(--color-outer-space-crayola),
+    -1px -1px 3px 1px var(--color-outer-space-crayola);
+}
+
 .city-form__submit {
   cursor: pointer;
   text-align: center;
-  margin: 1rem 0;
+  margin-top: 1rem;
   font-size: 1.4rem;
-  color: var(--color-champagne);
-  background-color: var(--color-liver-organ);
+  color: white;
+  background-color: var(--color-outer-space-crayola);
   border: 2px solid black;
   border-radius: 5px;
   height: 2rem;
   width: 10rem;
+  transition: color 200ms ease-in-out;
+}
+
+.city-form__submit:hover,
+.city-form__submit:focus {
+  background-color: var(--color-skobeloff);
+}
+
+.degree-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 4rem;
+  transition: color 200ms ease-in-out;
+}
+
+.button--active {
+  color: var(--color-international-orage-golden-gate-bridge);
+}
+
+.degree-divider {
+  font-size: 4rem;
 }
