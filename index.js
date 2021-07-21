@@ -117,7 +117,7 @@ const app = (() => {
 
   function fetchWeather(city) {
     return fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=2cb1f67211afcc04ab3cde6076c7190a&units=imperial`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=2cb1f67211afcc04ab3cde6076c7190a&units=imperial`
     )
       .then(function (response) {
         if (!response.ok) {
