@@ -43,7 +43,7 @@ img {
 -------------------*/
 
 html {
-  --color-champagne: #edddd4;
+  --color-champagne: #f3e9e3;
   --color-skobeloff: #197278;
   --color-outer-space-crayola: #283d3b;
   --color-international-orage-golden-gate-bridge: #c44536;
@@ -63,13 +63,13 @@ html {
 }
 
 .weather {
-  box-shadow: 1px 1px 5px 3px black, -1px -1px 5px 3px black;
+  box-shadow: 1px 1px 5px 2px black, -1px -1px 5px 2px black;
   background-color: var(--color-champagne);
   margin: 3rem auto 0 auto;
   height: 30rem;
   width: 40rem;
   border: 3px solid black;
-  border-radius: 3rem;
+  border-radius: 0.5rem;
 }
 
 .weather__header {
@@ -210,4 +210,62 @@ html {
 
 .degree-divider {
   font-size: 4rem;
+}
+
+/*-------------------
+    MEDIA
+-------------------*/
+
+@media only screen and (max-width: 41.875rem) {
+  .header {
+    font-size: 2rem;
+  }
+
+  .weather {
+    width: 20rem;
+    height: 22rem;
+  }
+
+  .weather__header {
+    height: 5rem;
+  }
+
+  .weather__message {
+    font-size: 2rem;
+  }
+
+  .weather__city {
+    font-size: 1.5rem;
+  }
+
+  .weather__temp {
+    font-size: 1.5rem;
+  }
+
+  .weather__conditions {
+    font-size: 1rem;
+  }
+
+  .weather__main {
+    height: 17rem;
+    font-size: 1.35rem;
+  }
+
+  .weather__main-left {
+    padding: none;
+  }
+
+  .weather__image {
+    margin-right: 3rem;
+    height: 7rem;
+    width: 10rem;
+    border: 5px solid black;
+    border-radius: 1rem;
+  }
+
+  .footer {
+    width: 20rem;
+    flex-direction: column;
+    align-items: center;
+  }
 }

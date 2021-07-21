@@ -23,17 +23,8 @@ class WeatherData {
     return this.calcWindDirection();
   }
 
-  get celsius() {
-    return this.calcCelsius();
-  }
-
-  get metricWindSpeed() {
-    return this.calcWindSpeed();
-  }
-
   calcWindDirection() {
     const direction = Math.round(this.windDirection / 45) + 1;
-    console.log(direction);
     if (direction == 9) {
       return "N";
     }
@@ -100,7 +91,6 @@ const app = (() => {
   }
 
   function displayWeather(obj) {
-    console.log(obj);
     message.style.display = "none";
     city.innerText = obj.city;
     conditions.innerText = obj.conditions;
@@ -144,7 +134,6 @@ const app = (() => {
   }
 
   async function fetchGif(description) {
-    console.log(description);
     try {
       const response = await fetch(
         `https://api.giphy.com/v1/gifs/translate?api_key=CPclGYCuEiW2nD7terXj71m9GmdMlNND&s&s=${description}`,
